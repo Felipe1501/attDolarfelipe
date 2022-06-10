@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 export default function Dolar(props) {
     return(
         <>
+        <Text  style={styles.texto}>NOME: {props.data.name} </Text>
         <Text  style={styles.texto}>COMPRA: {props.data.bid} </Text>
         <Text  style={styles.texto}>VENDA: {props.data.ask}</Text>
         <Text style={styles.texto}>VARIAÇÃO: {props.data.varBid}</Text>
@@ -12,6 +13,8 @@ export default function Dolar(props) {
         </>
     );
 }
+
+
 
 const styles = StyleSheet.create({
     texto:{

@@ -1,20 +1,37 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Dolar from './Componentes/Dolar';
 import APIDolar from './Componentes/Api';
+import Libra from './Componentes/Dolar';
 
 export default function App() {
 
     const [dolar, setDolar] = useState("");
+    //const [libra, setLibra] = useState("");
 
     async function precoDolar(){
       const resposta = await APIDolar.get('json/last/USD-BRL');
-      setDolar(resposta.data);
+      setDolar(resposta.data.USDBRL);
+    }
+
+    async function precoLibra(){
+      const resposta = await APIDolar.get('json/last/BRL-GBP');
+      setDolar(resposta.data.BRLGBP);
+    }
+
+    function limpar(){
+      setDolar("");
     }
 
 
   return (
     <View style={styles.container}>
+            <Image
+        style={styles.logo}
+        source={{
+          uri: 'https://imagens.ebc.com.br/xj-ofexRdWVoCJyluqfmOtAj1VA=/1170x700/smart/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/dolar_moeda_0803221212.jpg?itok=aJCrKvtz',
+        }}
+      />
       <Text style={styles.texto}>HELLO HELLO!</Text>
       <View style={styles.texto}>
           <Text style={styles.texto}>COTAÇÃO MOEDAS:</Text>
@@ -24,9 +41,20 @@ export default function App() {
           onPress={precoDolar}>
               <Text style={styles.txtBloco}>DÓLAR PARA REAL</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+          style={styles.bloco}
+          onPress={precoLibra}>
+              <Text style={styles.txtBloco}>REAL PARA LIBRA</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          style={styles.bloco}
+          onPress={limpar}>
+              <Text style={styles.txtBloco}>LIMPAR</Text>
+          </TouchableOpacity>
           <Dolar data={dolar}/>
+  
 
-
+    
 
       </View>
     </View>
@@ -36,7 +64,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6F5FF',
+    backgroundColor: '#E6D9C0',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -58,7 +86,7 @@ const styles = StyleSheet.create({
 
   txtBloco: {
     marginTop: 10,
-      backgroundColor: '#1FC9CC',
+      backgroundColor: '#F2D2BD',
       borderWidth: 2,
       borderColor: '#E6F5FF',
       borderRadius: 10,
@@ -68,4 +96,10 @@ const styles = StyleSheet.create({
       padding: 5, 
       fontSize: 20,
     },
+  logo:{
+    width: 120,
+    height: 90,
+    margin: 5,
+    borderRadius: 5
+  }
 });
