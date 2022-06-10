@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-
+import Dolar from './Componentes/Dolar';
+import APIDolar from './Componentes/Api';
 
 export default function App() {
 
-  
+    const [dolar, setDolar] = useState("");
 
+    async function precoDolar(){
+      const resposta = await APIDolar.get('json/last/USD-BRL');
+      setDolar(resposta.data);
+    }
 
 
   return (
@@ -15,10 +20,11 @@ export default function App() {
           <Text style={styles.texto}>COTAÇÃO MOEDAS:</Text>
 
           <TouchableOpacity
-          style={styles.bloco}>
-              <Text style={styles.txtBloco}>BUSCAR</Text>
+          style={styles.bloco}
+          onPress={precoDolar}>
+              <Text style={styles.txtBloco}>DÓLAR PARA REAL</Text>
           </TouchableOpacity>
-
+          <Dolar data={dolar}/>
 
 
 
