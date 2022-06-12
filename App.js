@@ -1,26 +1,30 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import Dolar from './Componentes/Dolar';
-import APIDolar from './Componentes/Api';
-import Libra from './Componentes/Dolar';
+import Moeda from './Componentes/Moeda';
+import APIMoedas from './Componentes/Api';
 
 export default function App() {
 
-    const [dolar, setDolar] = useState("");
+    const [moeda, setMoeda] = useState("");
     //const [libra, setLibra] = useState("");
 
     async function precoDolar(){
-      const resposta = await APIDolar.get('json/last/USD-BRL');
-      setDolar(resposta.data.USDBRL);
+      const resposta = await APIMoedas.get('json/last/USD-BRL');
+      setMoeda(resposta.data.USDBRL);
     }
 
     async function precoLibra(){
-      const resposta = await APIDolar.get('json/last/BRL-GBP');
-      setDolar(resposta.data.BRLGBP);
+      const resposta = await APIMoedas.get('json/last/BRL-GBP');
+      setMoeda(resposta.data.BRLGBP);
+    }
+
+    async function precoEuro(){
+      const resposta = await APIMoedas.get('json/last/EUR-USD');
+      setMoeda(resposta.data.EURUSD);
     }
 
     function limpar(){
-      setDolar("");
+      setMoeda("");
     }
 
 
@@ -32,7 +36,7 @@ export default function App() {
           uri: 'https://imagens.ebc.com.br/xj-ofexRdWVoCJyluqfmOtAj1VA=/1170x700/smart/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/dolar_moeda_0803221212.jpg?itok=aJCrKvtz',
         }}
       />
-      <Text style={styles.texto}>HELLO HELLO!</Text>
+      <Text style={styles.texto}>CIAO CIAO!</Text>
       <View style={styles.texto}>
           <Text style={styles.texto}>COTAÇÃO MOEDAS:</Text>
 
@@ -48,10 +52,15 @@ export default function App() {
           </TouchableOpacity>
           <TouchableOpacity
           style={styles.bloco}
+          onPress={precoEuro}>
+              <Text style={styles.txtBloco}>EURO PARA DÓLAR</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          style={styles.bloco}
           onPress={limpar}>
               <Text style={styles.txtBloco}>LIMPAR</Text>
           </TouchableOpacity>
-          <Dolar data={dolar}/>
+          <Moeda data={moeda}/>
   
 
     

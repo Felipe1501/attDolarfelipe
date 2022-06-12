@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
-export default function Dolar(props) {
+export default function Moeda(props) {
     return(
         <>
         <Text  style={styles.texto}>NOME: {props.data.name} </Text>
